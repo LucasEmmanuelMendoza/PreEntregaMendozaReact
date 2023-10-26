@@ -1,0 +1,14 @@
+#root {
+  width: 100%;
+  text-align: center;
+}
+
+body{
+  background-color: rgb(32, 18, 32);
+}
+
+.container > span {
+  color: rgb(13, 255, 5);
+  margin-left: 1rem;
+  font-size: x-large;
+}

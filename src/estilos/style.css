@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/*BASE*/
+.imgLogo{
+  width: 2rem;
+  height: 2rem;
+  border-radius: .4rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+li {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5 {
+  color: rgba(255, 255, 255, 0.822);
+}
+
+.btn {
+  color: white;
+  border: 0.1rem solid white;
+  background-color: rgb(204, 162, 23);
+}
+.btn:hover {
+  color: black;
+  background-color: rgb(204, 162, 23);
+}
+
+/*FOOTER*/
+footer .redes__logos__logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 23rem;
+}
+
+/*HEADER*/
+header {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.7rem;
+}
+header ul li a:hover {
+  transform: translateY(0.2rem);
+  color: yellow;
+}
+header .logoTitulo {
+  margin-top: 0.5rem;
+}
