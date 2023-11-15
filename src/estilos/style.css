@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.navLink{
+  margin-right: .5rem;  
+  font-size: large;
+}
 /*BASE*/
 .imgLogo{
   width: 2rem;
@@ -47,4 +51,22 @@ header ul li a:hover {
 }
 header .logoTitulo {
   margin-top: 0.5rem;
+}
+
+.card{
+  box-shadow: 10px 10px 10px rgb(38, 3, 54);
+  height: 25rem;
+  border-radius: .5rem;
+}
+
+.img{
+  height: 60%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: .5rem;
+}
+
+.cardsContainer{
+  display: flex;
+  flex-direction: column;
 }

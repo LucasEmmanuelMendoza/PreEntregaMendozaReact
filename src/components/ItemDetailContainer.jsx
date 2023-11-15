@@ -1,35 +1,32 @@
 import Container from 'react-bootstrap/Container'
 import { useState, useEffect } from "react"
 import { products } from "/src/data/products.js"
-import { useParams } from "react-router-dom"
-import { ItemList } from './ItemList';
+import { useParams } from "react-router-dom" 
 import "../estilos/style.css"
+import { ItemDetail } from './ItemDetail';
 
-export const ItemListContainer = () =>{
-    const [items, setItems] = useState([]);
-    const { id } = useParams();
+export const ItemDetailContainer = () =>{
+    const [item, setItem] = useState(null);
+    const { id } = useParams(); 
 
     useEffect(() => {
         const myPromise = new Promise((resolve, reject) =>{
             setTimeout(() => {
                 resolve(products);
-            }, 2000);
+            }, 1000);
         })
 
         myPromise.then((response) => {
-            if(!id){
-                setItems(response);
-            }else{
-                const filterByCategory = response.filter( (item) => item.category == id);
-                setItems(filterByCategory);
-            }
+            const findById = response.find((item) => item.id === Number(id));
+            setItem(findById);
+            console.log(findById.id);
         });
 
     }, [id]);
     
     return (
         <Container className='cardsContainer mt-2'>
-            <ItemList items={items}/>
+            { item ? <ItemDetail item={item}/> : <>...</> }
         </Container>
     );
 };
