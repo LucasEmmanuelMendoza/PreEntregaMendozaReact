@@ -11,6 +11,7 @@ import './estilos/style.css'
 
 function App() {
   return (
+    
     <BrowserRouter>
       <NavBar/>
         <Routes>

@@ -1,4 +1,23 @@
 @charset "UTF-8";
+*{
+  box-sizing: border-box;
+}
+
+.priceStock{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.imgDetail{
+  width: 35rem;
+  height: 40rem;
+  object-fit: cover;
+  border-radius: 2rem;
+}
+
 .navLink{
   margin-right: .5rem;  
   font-size: large;
