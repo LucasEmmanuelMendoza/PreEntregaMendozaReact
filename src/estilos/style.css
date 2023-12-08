@@ -3,9 +3,12 @@
   box-sizing: border-box;
 }
 
+.inputForm{
+  border-radius: .5rem;
+}
+
 .priceStock{
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 2rem;
   justify-content: center;
@@ -43,16 +46,45 @@ h1, h2, h3, h4, h5 {
 }
 
 .btn {
-  color: white;
-  border: 0.1rem solid white;
-  background-color: rgb(204, 162, 23);
+  color: rgb(255, 255, 255);
+  border: 0.1rem solid rgb(255, 255, 255);
+  background-color: rgb(36, 35, 35);
 }
 .btn:hover {
-  color: black;
-  background-color: rgb(204, 162, 23);
+  color: rgb(36, 35, 35);
+  border: 0.1rem solid rgb(36, 35, 35);
+  background-color: rgb(255, 255, 255);
 }
+/* .btn:active {
+  background-color: #ffffff;
+  box-shadow: 0 5px rgb(36, 35, 35);
+  transform: translateY(4px);
+} */
 
 /*FOOTER*/
+/* .app{
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -60px; /* Adjust the value as needed 
+
+} */
+.app {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+}
+
+
+main {
+  flex: 1;
+}
+
+.footer{
+  margin-top: auto;;
+}
+
 footer .redes__logos__logo {
   width: 1.5rem;
   height: 1.5rem;
@@ -78,8 +110,22 @@ header .logoTitulo {
   border-radius: .5rem;
 }
 
+.card:hover{
+  transform: scale(0.99);
+  .img{
+    filter:grayscale(85%)
+  }
+}
+
+.card_body{
+  display:flex;
+  flex-direction: column;
+  gap: .5rem;
+  justify-content: center;
+}
+
 .img{
-  height: 60%;
+  height: 70%;
   width: 100%;
   object-fit: cover;
   border-radius: .5rem;

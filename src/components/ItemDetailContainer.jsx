@@ -1,29 +1,24 @@
 import Container from 'react-bootstrap/Container'
 import { useState, useEffect } from "react"
-import { products } from "/src/data/products.js"
 import { useParams } from "react-router-dom" 
 import "../estilos/style.css"
 import { ItemDetail } from './ItemDetail';
+import { getDoc, getFirestore, doc } from 'firebase/firestore'
 
 export const ItemDetailContainer = () =>{
     const [item, setItem] = useState(null);
     const { id } = useParams(); 
 
     useEffect(() => {
-        const myPromise = new Promise((resolve, reject) =>{
-            setTimeout(() => {
-                resolve(products);
-            }, 1000);
-        })
+        const db = getFirestore();
 
-        myPromise.then((response) => {
-            const findById = response.find((item) => item.id === Number(id));
-            setItem(findById);
-            console.log(findById.id);
+        const refDoc = doc(db, "items", id);
+
+        getDoc(refDoc).then((snapshot) => {
+            setItem({ id: snapshot.id, ...snapshot.data() });
         });
+    }, [id]); 
 
-    }, [id]);
-    
     return (
         <Container className='cardsContainer mt-2'>
             { item ? <ItemDetail item={item}/> : <h1>Loading....</h1> }
