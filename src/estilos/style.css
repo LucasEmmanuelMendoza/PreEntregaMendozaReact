@@ -15,15 +15,16 @@
 }
 
 .imgDetail{
-  width: 35rem;
-  height: 40rem;
-  object-fit: cover;
+  width: 20rem;
+  height: 20rem;
+  object-fit: fill;
   border-radius: 2rem;
 }
 
 .navLink{
   margin-right: .5rem;  
   font-size: large;
+  font-weight: 400;
 }
 /*BASE*/
 .imgLogo{
@@ -133,5 +134,62 @@ header .logoTitulo {
 
 .cardsContainer{
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.imgTable{
+  width: 3rem;
+  height: 3rem;
+}
+
+.cartProductName{
+  font-size: 1rem;
+  font-weight:bold;
+}
+
+@media(min-width: 768px){
+  .cardsContainer{
+    justify-content: start;
+    margin-left: 3rem;
+  }
+
+  .imgDetail{
+    width: 35rem;
+    height: 35rem;
+    object-fit: cover;
+    border-radius: 2rem;
+  }
+
+  .imgTable{
+    width: 6rem;
+    height: 7rem;
+  }
+
+  .cartProductName{
+    font-size: 2rem;
+    font-weight:normal;
+  }
+  
+}
+
+@media(min-width: 990px){
+  .cardsContainer{
+    justify-content: start;
+    margin-left: 9rem;
+  }
+
+}
+
+@media(min-width: 1200px){
+  .cardsContainer{
+    margin-left: 6rem;
+  }
+}
+
+@media(min-width: 1400px){
+    .cardsContainer{
+      margin-left: 2rem;
+  }
 }

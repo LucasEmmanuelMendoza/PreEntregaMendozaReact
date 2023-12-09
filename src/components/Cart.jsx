@@ -11,16 +11,22 @@ import Swal from "sweetalert2";
 
 import '../estilos/style.css'
 
-const Formulario = ({state, buyer, enviar, handleChange}) =>{
-    
+const Formulario = ({state, buyer, enviar, handleChange, total}) =>{
+
     const [secondEmailValue, setSecondEmailValue] = useState('');
 
     const handleSecondEmail = (event) => {
         setSecondEmailValue(event.target.value);
     }
 
-    const toggleSend = () => {
+    const verifEmail = (email) => {
+        let retorno = false;
         
+        if(email.includes('@') && email.includes('.')){
+            retorno = true;
+        }
+
+        return retorno;
     }
 
     return(
@@ -53,11 +59,15 @@ const Formulario = ({state, buyer, enviar, handleChange}) =>{
                         </Form.Text>
                     </Form.Group> 
 
+                    <label style={{marginBottom:"1rem", backgroundColor:"yellow", display:"inline-block", borderRadius:".3rem", fontSize:"large", fontWeight:"bold"}}>
+                        Total: {total}
+                    </label>
+
                     <div style={{display:"flex", justifyContent:"center", gap:"1rem"}}>
                         
                         <Button onClick={() => state(true)}>Mostrar Carrito</Button>
 
-                        {buyer.email === secondEmailValue && buyer.email != ""?
+                        {buyer.email === secondEmailValue && buyer.email != "" && verifEmail(buyer.email) ?
                             <Button variant="primary" style={{backgroundColor:"green"}} onClick={() => enviar()} >Generar Pedido</Button>
                             : <Button style={{backgroundColor:"green"}} className="btn"
                              onClick={() => 
@@ -72,6 +82,7 @@ const Formulario = ({state, buyer, enviar, handleChange}) =>{
 }
 
 const TablaCarrito = ({items, state, deleteItem, limpiar, total}) =>{
+
     return (
         <Container>
             {/* {items.length > 0?<>{items.length}</>:<>Hola</>} */}
@@ -88,10 +99,10 @@ const TablaCarrito = ({items, state, deleteItem, limpiar, total}) =>{
             <tbody>
                 {items.map(item => 
                     <tr key={item.id}>
-                        <td><img src={item.pictureUrl} alt={item.title} style={{width:"6rem", height:"7rem"}}/></td>
-                        <td style={{fontSize:"1.5rem", marginTop:"1rem", fontWeight:"bold"}}>{item.title}</td>
-                        <td style={{fontSize:"1.5rem" , fontWeight:"bold"}}>${item.price}</td>
-                        <td style={{fontSize:"1.5rem", fontWeight:"bold"}}>{item.cant}</td>
+                        <td><img src={item.pictureUrl} alt={item.title}  className="imgTable"/></td>
+                        <td className="cartProductName">{item.title}</td>
+                        <td className="cartProductName">${item.price}</td>
+                        <td className="cartProductName">{item.cant}</td>
                         <td><button className="btn" onClick={() => deleteItem(item.id)}>X</button></td>
                     </tr>
                 )}
@@ -99,7 +110,7 @@ const TablaCarrito = ({items, state, deleteItem, limpiar, total}) =>{
             </Table>
 
             <label style={{marginBottom:"1rem", backgroundColor:"yellow", display:"inline-block", borderRadius:".3rem", fontSize:"large", fontWeight:"bold"}}>
-                Total: ${total}
+                Total: {total}
             </label>
 
             <div style={{display:"flex", justifyContent:"center", gap:"1rem"}} >
@@ -139,14 +150,36 @@ export const Cart = () =>{
 
     const [ buyer, setBuyer ] = useState(resetBuyer);
 
-    const total = items.reduce((acumulador, prod) => acumulador += prod.price * prod.cant, 0);  
+    const total = "$" + items.reduce((acumulador, prod) => acumulador += prod.price * prod.cant, 0);  
     
+    const newDate = new Date();
+    const f = new Intl.DateTimeFormat("es-sp",{
+        dateStyle: "short"
+    })
+
+    const fecha = f.format(newDate)
+
+    const estado = "Generada"
+
+    const modItems = items.map(item => {
+        return {
+            title:item.title,
+            description:item.description,
+            price:item.price,
+            cant:item.cant,
+            pictureUrl: item.pictureUrl
+        }
+    })
+
     const sendOrder = ({buyer, items, total}) => {
 
         const order = {
             buyer,
-            items,
-            total
+            modItems,
+            /* items, */
+            total,
+            fecha,
+            estado
         }
 
         const db = getFirestore();
@@ -158,13 +191,14 @@ export const Cart = () =>{
                 Swal.fire({
                     icon: "success",
                     title: `Orden ${id} generada con éxito`,
+                    text: items.map((item) => ` ${item.cant} x ${item.title}`),
                 });
 
                 clearCart(false);
             }
         })
         
-        }//fin send order
+    }//fin send order
     
     const handleChange = (event) =>{
 
@@ -183,7 +217,7 @@ export const Cart = () =>{
             <>
                 {
                     tableState ? <TablaCarrito items={items} state={setTableState} deleteItem={deleteItem} limpiar={clearCart} total={total}/>
-                    : <Formulario state={setTableState} buyer={buyer || {}} enviar={() => sendOrder({ buyer, items, total })} handleChange={handleChange}/> 
+                    : <Formulario state={setTableState} buyer={buyer || {}} enviar={() => sendOrder({ buyer, items, total })} handleChange={handleChange} total={total}/> 
                 }
 
             </>

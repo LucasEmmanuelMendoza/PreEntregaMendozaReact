@@ -32,7 +32,7 @@ export const ItemListContainer = () =>{
             {!items.length ? (
                 <h1>Loading...</h1>
             ):(
-                <Container className='cardsContainer mt-2'>
+                <Container className='mt-2'>
                     <ItemList items={items}/>
                 </Container>
             )}

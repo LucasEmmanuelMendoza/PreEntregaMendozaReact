@@ -1,6 +1,6 @@
 import Container from 'react-bootstrap/Container'
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom" 
+import { useNavigate, useParams } from "react-router-dom" 
 import "../estilos/style.css"
 import { ItemDetail } from './ItemDetail';
 import { getDoc, getFirestore, doc } from 'firebase/firestore'
@@ -8,19 +8,32 @@ import { getDoc, getFirestore, doc } from 'firebase/firestore'
 export const ItemDetailContainer = () =>{
     const [item, setItem] = useState(null);
     const { id } = useParams(); 
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const db = getFirestore();
+        const fetchProds = async () => {
 
-        const refDoc = doc(db, "items", id);
+            const db = getFirestore();
+            const refDoc = doc(db, "items", id);
 
-        getDoc(refDoc).then((snapshot) => {
-            setItem({ id: snapshot.id, ...snapshot.data() });
-        });
-    }, [id]); 
+            try {
+                const snapshot = await getDoc(refDoc);
+                if(snapshot.exists()){
+                    setItem({ id: snapshot.id, ...snapshot.data() });
+                }else{
+                    navigate('/error');
+                }
+            }catch(error){
+                console.log('productos no encontrados');
+            }
+        }
+
+        fetchProds();
+
+    }, [id, navigate]); 
 
     return (
-        <Container className='cardsContainer mt-2'>
+        <Container className=' '>
             { item ? <ItemDetail item={item}/> : <h1>Loading....</h1> }
         </Container>
     );

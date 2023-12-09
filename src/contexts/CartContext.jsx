@@ -37,7 +37,7 @@ export const CartProvider = ({children}) => {
                 const filtrados = items.map((prodStock) => {
                     if(prodStock.id === prod.id){
                          return{
-                            pictureUrl: prod.pictureUrl,
+                            pictureUrl: prod.pictureUrl, 
                             id: prod.id,
                             title: prod.title,
                             description: prod.description,

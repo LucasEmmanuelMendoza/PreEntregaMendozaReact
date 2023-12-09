@@ -8,6 +8,7 @@ import { Error404 } from './components/Error404.jsx'
 import { CartProvider } from './contexts/CartContext.jsx'
 import { Cart } from './components/Cart.jsx'
 import { Footer } from './components/Footer.jsx'
+import { ErrorProduct } from './components/ErrorProduct.jsx'
 import './App.css'
 import './estilos/style.css'
 
@@ -22,6 +23,7 @@ function App() {
               <Route path='/items/:id' element={<ItemDetailContainer/>}/>
               <Route path='/cart' element={<Cart/>}/>
               <Route path='*' element={<Error404/>}/>
+              <Route path='/error' element={<ErrorProduct/>}/>
             </Routes>
           <Footer/>
       </BrowserRouter>
