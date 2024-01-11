@@ -46,21 +46,33 @@ export const NavBar = () =>{
         <CartWidget/>
       </Container>
     </Navbar> 
-  ); */
+  ); 
+  
+      return (
+        <Container className=' '>
+            { item ? <ItemDetail item={item}/> : <h1>Loading....</h1> }
+        </Container>
+    );
+    */
   return (
-    <Navbar expand="lg" bg="dark" data-bs-theme="dark">
-      <Container>
-        <NavLink to="/"><h1 style={{fontSize:"1.5rem", marginRight:"1rem"}}>Olga 3D Impresiones</h1></NavLink>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" style={{display:"flex", justifyContent:"center", alignItems:"center", gap:".2rem"}}>
-            <NavLink to="/" className="navLink"><h4>Home</h4></NavLink>
-            {categFiltradas.map((cat) => <NavLink to={`category/${cat}`} className="navLink" key={cat}>{cat}</NavLink>)} 
-          </Nav>
-        <CartWidget/>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <>
+      {categFiltradas.length > 0 ?
+        <Navbar expand="lg" bg="dark" data-bs-theme="dark">
+          <Container>
+            <NavLink to="/"><h1 style={{fontSize:"1.5rem", marginRight:"1rem"}}>Olga 3D Impresiones</h1></NavLink>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto" style={{display:"flex", justifyContent:"center", alignItems:"center", gap:".2rem"}}>
+                <NavLink to="/" className="navLink"><h4>Home</h4></NavLink>
+                {categFiltradas.map((cat) => <NavLink to={`category/${cat}`} className="navLink" key={cat}>{cat}</NavLink>)} 
+              </Nav>
+            <CartWidget/>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar> :
+        <></>
+      }
+    </>
   );
 
 
